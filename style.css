@@ -1,0 +1,38 @@
+*{
+      font-family: "Poppins", sans-serif;
+}
+
+.colored-text{
+    color: #4e38f5;
+}
+
+.nav-link:hover {
+
+  color: #6366f1;
+}
+
+.active-nav {
+  
+  color: #6366f1 !important;
+}
+
+.custom-btn {
+  @apply btn btn-sm normal-case font-medium text-sm
+         bg-white text-black border-0
+         transition duration-100;
+}
+
+.custom-btn:hover {
+  background-color:  #6366f1; 
+  color: white;
+}
+
+.custom-btn:active {
+  background-color: none;
+  color:  #6366f1;
+}
+
+.custom-btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
