@@ -25,13 +25,14 @@
       <ul class="menu menu-horizontal px-1">
         <li><a id="homeBtn" onclick="showHome()" class="custom-btn">Home</a></li>
         <li><a id="productsBtn" onclick="showProducts()" class="custom-btn">Products</a></li>
-        <li><a id="aboutBtn" onclick="showWorkingPage()" class="custom-btn">About</a></li>
-        <li><a id="contactBtn" onclick="showWorkingPage()" class="custom-btn">Contact</a></li>
+        <li><a id="aboutBtn" onclick="showWorkingPage('about')" class="custom-btn">About</a></li>
+        <li><a id="contactBtn" onclick="showWorkingPage('contact')" class="custom-btn">Contact</a></li>
       </ul>
     </div>
 
     <div class="navbar-end">
-      <a class="mr-0 lg:mr-[200px]"><i class="fa-solid fa-cart-shopping"></i></a>
+      <a class="mr-0 lg:mr-[200px] relative" onclick="openCart()"><i class="fa-solid fa-cart-shopping"></i>
+      <span id="cartCount" class="absolute -top-2 -right-3 bg-[#2e302f] text-white text-xs w-4 h-4 flex items-center justify-center rounded-full" >0</span></a>
       <div class="dropdown lg:hidden">
         <label tabindex="0" class="btn btn-ghost">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
@@ -43,14 +44,41 @@
         <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
           <li><a id="homeBtnSmall" onclick="showHome()" class="custom-btn">Home</a></li>
           <li><a id="productsBtnSmall" onclick="showProducts()" class="custom-btn">Products</a></li>
-          <li><a id="aboutBtnSmall" class="custom-btn" onclick="showWorkingPage()">About</a></li>
-          <li><a id="contactBtnSmall"  class="custom-btn" onclick="showWorkingPage()">Contact</a></li>
+          <li><a id="aboutBtnSmall" class="custom-btn" onclick="showWorkingPage('about')">About</a></li>
+          <li><a id="contactBtnSmall"  class="custom-btn" onclick="showWorkingPage('contact')">Contact</a></li>
         </ul>
       </div>
     </div>
   </div>
 </header>
   <main>
+    <dialog id="cartModal" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box max-w-lg">
+
+    <h3 class="text-lg font-bold mb-4 text-center">Your Cart</h3>
+
+    <div id="cartItems" class="space-y-4 max-h-60 overflow-y-auto"></div>
+
+    <div class="divider"></div>
+<div class="space-y-2 font-semibold">
+      <div class="flex justify-between">
+        <span>Total Items:</span>
+        <span id="totalItems">0</span>
+      </div>
+
+      <div class="flex justify-between text-lg">
+        <span>Total Price:</span>
+        <span>$<span id="cartTotal">0</span></span>
+      </div>
+    </div>
+
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
       <section id="Home">
     
   <!-- bannerImage -->

@@ -1,3 +1,5 @@
+
+// load and display details
 const loadProductDetails=async(id)=>{
     const url=`https://fakestoreapi.com/products/${id}`;
     const response=await fetch(url);
@@ -35,14 +37,14 @@ const displayProductDetails=(product)=>{
   <p class="text-black text-sm">${product.description}</p>
 
 
-  <button class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+  <button class="btn btn-primary btn-sm flex-1" onclick="addToCart(${product.id})">
     Add to Cart
   </button>
 
 </div> `;
     document.getElementById("my_modal_5").showModal();
 } 
-
+// load trending products and display
 
 const loadTrendingProducts=()=>{
     fetch("https://fakestoreapi.com/products")
@@ -83,7 +85,7 @@ const loadTrendingProducts=()=>{
               <button class="btn btn-outline btn-sm flex-1" onclick="my_modal_5.showModal()">
                 Details
               </button>
-              <button class="btn btn-primary btn-sm flex-1">
+              <button class="btn btn-primary btn-sm flex-1" onclick="addToCart(${product.id})">
                 Add
               </button>
             </div>
@@ -98,6 +100,8 @@ const loadTrendingProducts=()=>{
 
 
 loadTrendingProducts();
+
+// button
             
 function setActive(activeIdDesktop,activeIdMobile) {
       [
@@ -131,6 +135,7 @@ window.onload = function() {
   setActive("homeBtn","homeBtnSmall");
 };
 
+// button click and show page
 function showWorkingPage(type){
     document.getElementById("Home").classList.add("hidden");
     document.getElementById("Products").classList.add("hidden");
@@ -144,6 +149,7 @@ function showWorkingPage(type){
 
   window.scrollTo(0,0);
 }
+// load nd display all products
 
 let allProducts=[];
 
@@ -155,6 +161,7 @@ const loadProducts=()=>{
         displayProducts(allProducts);
     })
 }
+
 loadProducts();
  const displayProducts=(products)=>{
     const container= document.getElementById("productsContainer");
@@ -186,7 +193,7 @@ loadProducts();
           <button class="btn btn-outline btn-sm flex-1" onclick="loadProductDetails(${product.id})">
             Details
           </button>
-          <button class="btn btn-primary btn-sm flex-1">
+          <button class="btn btn-primary btn-sm flex-1" onclick="addToCart(${product.id})">
             Add
           </button>
         </div>
@@ -195,6 +202,7 @@ loadProducts();
 
     container.appendChild(card);
   });
+//  category 
 }
  const filterProducts=(category)=>{
     if(category=="all"){
@@ -226,3 +234,88 @@ buttons.forEach(btn => {
   });
 });
 
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function addToCart(id){
+  const product=allProducts.find(p=>p.id===id);
+  const existing= cart.find(item=>item.id===id);
+  if(existing){
+    existing.quantity += 1;
+  }
+  else{
+    cart.push({
+      ...product, quantity:1
+    });
+  }
+  saveCart();
+  updateCartUI();
+}
+function updateCartUI(){
+  const cartItemsContainer = document.getElementById("cartItems");
+  const cartCount= document.getElementById("cartCount");
+  const totalItemsEl = document.getElementById("totalItems");
+  const totalPriceEl = document.getElementById("cartTotal");
+
+  cartItemsContainer.innerHTML=" ";
+  let totalItems = 0;
+  let totalPrice = 0;
+
+  cart.forEach(item => {
+    totalItems += item.quantity;
+    totalPrice += item.price * item.quantity;
+
+    const div = document.createElement("div");
+    div.className = "flex gap-4 items-center border-b pb-3";
+
+    div.innerHTML = `
+      <img src="${item.image}" class="w-16 h-16 object-contain rounded">
+
+      <div class="flex-1">
+        <h4 class="font-semibold text-sm">${item.title}</h4>
+        <p class="text-sm font-bold">$${item.price}</p>
+
+        <div class="flex items-center gap-2 mt-2">
+          <button onclick="changeQuantity(${item.id}, -1)" class="btn btn-xs">-</button>
+          <span>${item.quantity}</span>
+          <button onclick="changeQuantity(${item.id}, 1)" class="btn btn-xs">+</button>
+        </div>
+      </div>
+
+      <div class="text-right">
+        <p class="font-bold">$${(item.price * item.quantity).toFixed(2)}</p>
+        <button onclick="removeItem(${item.id})" class="text-red-500 text-xs">Remove</button>
+      </div>
+    `;
+
+    cartItemsContainer.appendChild(div);
+  });
+
+  cartCount.innerText = totalItems;
+  totalItemsEl.innerText = totalItems;
+  totalPriceEl.innerText = totalPrice.toFixed(2);
+}
+function changeQuantity(id, amount) {
+  const item = cart.find(p => p.id === id);
+  if (!item) return;
+  item.quantity += amount;
+  if (item.quantity <= 0) {
+    cart = cart.filter(p => p.id !== id);
+  }
+  saveCart();
+  updateCartUI();
+}
+function removeItem(id) {
+  cart = cart.filter(p => p.id !== id);
+  saveCart();
+  updateCartUI();
+}
+function openCart() {
+  updateCartUI();
+  document.getElementById("cartModal").showModal();
+}
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+window.addEventListener("DOMContentLoaded", () => {
+  updateCartUI();
+});
