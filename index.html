@@ -17,43 +17,39 @@
 
 <body>
   <header>
-    <div class="navbar bg-base-100 shadow-sm">
-  <div class="navbar-start">
-    <a class=" colored-text text-xl font-bold pl-[10px] lg:pl-[200px] md:pl-10 sm:pl-10">SwiftCart</a>
-  </div>
-  <div class="navbar-center hidden lg:flex">
-    <ul class="menu menu-horizontal px-1">
-      <li><a id="homeBtn" onclick="showHome()"class="custom-btn">Home</a></li>
-        <li>
-          <a id="productsBtn" onclick="showProducts()" class="custom-btn"> Products</a>
-        </li>
-        <li><a class="custom-btn">About</a></li>
-        </li>
-        <li><a class="custom-btn">Contact</a></li>
-    </ul>
-  </div>
-
-  <div class="navbar-end">
-    <a class="mr-0 lg:mr-[200px]"><i class="fa-solid fa-cart-shopping "></i></a>
-    <div class="dropdown">
-      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
-      </div>
-      <ul
-        tabindex="-1"
-        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-        <li><a onclick="showHome()" id="homeBtn" class="nav-link px-4 py-2 rounded-lg ">Home</a></li>
-        <li>
-          <a onclick="showProducts()" id="productsBtn" class="nav-link px-4 py-2 rounded-lg">Products</a>
-        </li>
-        <li><a class="nav-link px-4 py-2 rounded-lg ">About</a></li>
-        </li>
-        <li><a class="nav-link px-4 py-2 rounded-lg">Contact</a></li>
+  <div class="navbar bg-base-100 shadow-sm">
+    <div class="navbar-start">
+      <a class="colored-text text-xl font-bold pl-[10px] lg:pl-[200px] md:pl-10 sm:pl-10">SwiftCart</a>
+    </div>
+    <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal px-1">
+        <li><a id="homeBtn" onclick="showHome()" class="custom-btn">Home</a></li>
+        <li><a id="productsBtn" onclick="showProducts()" class="custom-btn">Products</a></li>
+        <li><a id="aboutBtn" onclick="showWorkingPage()" class="custom-btn">About</a></li>
+        <li><a id="contactBtn" onclick="showWorkingPage()" class="custom-btn">Contact</a></li>
       </ul>
     </div>
-  </div>
 
-  </header>
+    <div class="navbar-end">
+      <a class="mr-0 lg:mr-[200px]"><i class="fa-solid fa-cart-shopping"></i></a>
+      <div class="dropdown lg:hidden">
+        <label tabindex="0" class="btn btn-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h8m-8 6h16" />
+          </svg>
+        </label>
+        <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+          <li><a id="homeBtnSmall" onclick="showHome()" class="custom-btn">Home</a></li>
+          <li><a id="productsBtnSmall" onclick="showProducts()" class="custom-btn">Products</a></li>
+          <li><a id="aboutBtnSmall" class="custom-btn" onclick="showWorkingPage()">About</a></li>
+          <li><a id="contactBtnSmall"  class="custom-btn" onclick="showWorkingPage()">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
   <main>
       <section id="Home">
     
@@ -164,25 +160,25 @@
 <!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
 <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
   <div class="modal-box">
-    <h3 class="text-lg font-bold">Hello!</h3>
-    <p class="py-4">Press ESC key or click the button below to close</p>
+    <div id="detailsContainer">
+
+    </div>
+    
     <div class="modal-action">
       <form method="dialog">
-        <!-- if there is a button in form, it will close the modal -->
+       
         <button class="btn">Close</button>
       </form>
     </div>
   </div>
 </dialog>
 </section>
-
+<div id="workingPage"
+     class="hidden min-h-screen flex flex-col items-center justify-center text-center text-xl">
+  <h1 class="text-3xl font-bold mb-4">Sorry</h1>
+  <h2>We are still working on this page.</h2>
+</div>
   </main>
-
-
-
-
-
-
 <footer class="bg-[#1e2838] text-white">
   <div class="footer sm:footer-horizontal max-w-7xl mx-auto px-6 py-12">
     <nav>

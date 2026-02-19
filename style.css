@@ -19,7 +19,7 @@
 .custom-btn {
   @apply btn btn-sm normal-case font-medium text-sm
          bg-white text-black border-0
-         transition duration-100;
+         transition duration-10;
 }
 
 .custom-btn:hover {
